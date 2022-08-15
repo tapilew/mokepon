@@ -21,8 +21,7 @@ function main() {
       selecting = true;
     }
   }
-  //   const pcSelection = rpsPhrases[Math.floor(Math.random() * rpsPhrases.length)];
-  const pcSelection = "scissors";
+  const pcSelection = rpsPhrases[Math.floor(Math.random() * rpsPhrases.length)];
   const inputs = [userSelection, pcSelection];
   let winner;
   let winnerSelection;
