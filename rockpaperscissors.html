@@ -25,6 +25,17 @@
         }
         return result;
       }
+      function reportStatus(wins, losses, draws) {
+        return (
+          "Total wins: " +
+          wins +
+          "\nTotal losses: " +
+          losses +
+          "\nTotal draws: " +
+          draws
+        );
+      }
+
       let pc = 0;
       let player = 0;
       let wins = 0;
@@ -40,30 +51,23 @@
         alert("PC selects " + selection(pc));
         // COMBAT
         if (pc === player) {
-          draws += 1;
-          alert(
-            `ROUND IS A DRAW\nCurrent wins: ${wins}\nCurrent losses: ${losses}`
-          );
+          draws++;
+          alert(`ROUND IS A DRAW\n${reportStatus(wins, losses, draws)}`);
         } else if (
           (player === 1 && pc === 3) ||
           (player === 2 && pc === 1) ||
           (player === 3 && pc === 2)
         ) {
-          wins += 1;
-          alert(
-            `YOU WIN THE ROUND\nCurrent wins: ${wins}\nCurrent losses: ${losses}`
-          );
+          wins++;
+          alert(`YOU WIN THE ROUND\n${reportStatus(wins, losses, draws)}`);
         } else {
-          losses += 1;
-          alert(
-            `YOU LOST THE ROUND\nCurrent wins: ${wins}\nCurrent losses: ${losses}`
-          );
+          losses++;
+          alert(`YOU LOST THE ROUND\n${reportStatus(wins, losses, draws)}`);
         }
       }
-      let winner = wins >= 3 ? "you" : "PC";
+      let winner = wins >= 3 ? "YOU" : "PC";
       alert(
-        `You won ${wins} times. You lost ${losses} times. You drew ${draws} times.
-        \nFinal winner is ${winner}!`
+        `Final winner is ${winner}!\n\n${reportStatus(wins, losses, draws)}`
       );
     </script>
   </head>
