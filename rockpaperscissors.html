@@ -5,45 +5,40 @@
     <meta charset="utf-8" />
     <script>
       function random(min, max) {
-        return Math.floor(Math.random() * (max - min + 1) + min).toString();
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+      function selection(play) {
+        let result = "";
+        switch (play) {
+          case 1:
+            result = "rock 🪨";
+            break;
+          case 2:
+            result = "paper 📃";
+            break;
+          case 3:
+            result = "scissors ✂️";
+            break;
+          default:
+            result = "TO LOSE";
+            break;
+        }
+        return result;
       }
       // 1 is rock, 2 is paper, 3 is scissors
       let pc = random(1, 3);
-      let player = prompt("Select: 1 for rock, 2 for paper, 3 for scissors");
-
-      switch (player) {
-        case "1":
-          alert("You selected rock 🪨");
-          break;
-        case "2":
-          alert("You selected paper 📃");
-          break;
-        case "3":
-          alert("You selected scissors ✂️");
-          break;
-        default:
-          alert("You selected TO LOSE");
-          break;
-      }
-      switch (pc) {
-        case "1":
-          alert("PC selects rock 🪨");
-          break;
-        case "2":
-          alert("PC selects paper 📃");
-          break;
-        case "3":
-          alert("PC selects scissors ✂️");
-          break;
-      }
-
+      let player = parseInt(
+        prompt("Select: 1 for rock, 2 for paper, 3 for scissors")
+      );
+      alert("You selected " + selection(player));
+      alert("PC selects " + selection(pc));
       // COMBAT
       if (pc === player) {
         alert("DRAW");
       } else if (
-        (player === "1" && pc === "3") ||
-        (player === "2" && pc === "1") ||
-        (player === "3" && pc === "2")
+        (player === 1 && pc === 3) ||
+        (player === 2 && pc === 1) ||
+        (player === 3 && pc === 2)
       ) {
         alert("YOU WIN");
       } else {
