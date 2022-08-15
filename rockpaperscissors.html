@@ -10,30 +10,41 @@
       // 1 is rock, 2 is paper, 3 is scissors
       let pc = random(1, 3);
       let player = prompt("Select: 1 for rock, 2 for paper, 3 for scissors");
-      if (player === "1") {
-        alert("You selected rock 🪨");
-      } else if (player === "2") {
-        alert("You selected paper 📃");
-      } else if (player === "3") {
-        alert("You selected scissors ✂️");
-      } else {
-        alert("You selected TO LOSE");
+
+      switch (player) {
+        case "1":
+          alert("You selected rock 🪨");
+          break;
+        case "2":
+          alert("You selected paper 📃");
+          break;
+        case "3":
+          alert("You selected scissors ✂️");
+          break;
+        default:
+          alert("You selected TO LOSE");
+          break;
       }
-      if (pc === "1") {
-        alert("PC selects rock 🪨");
-      } else if (pc === "2") {
-        alert("PC selects paper 📃");
-      } else if (pc === "3") {
-        alert("PC selects scissors ✂️");
+      switch (pc) {
+        case "1":
+          alert("PC selects rock 🪨");
+          break;
+        case "2":
+          alert("PC selects paper 📃");
+          break;
+        case "3":
+          alert("PC selects scissors ✂️");
+          break;
       }
+
       // COMBAT
       if (pc === player) {
         alert("DRAW");
-      } else if (player === "1" && pc === "3") {
-        alert("YOU WIN");
-      } else if (player === "2" && pc === "1") {
-        alert("YOU WIN");
-      } else if (player === "3" && pc === "2") {
+      } else if (
+        (player === "1" && pc === "3") ||
+        (player === "2" && pc === "1") ||
+        (player === "3" && pc === "2")
+      ) {
         alert("YOU WIN");
       } else {
         alert("YOU LOSE");
