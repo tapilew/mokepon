@@ -4,8 +4,11 @@
     <title>Rock, paper, or scissors</title>
     <meta charset="utf-8" />
     <script>
+      function random(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min).toString();
+      }
       // 1 is rock, 2 is paper, 3 is scissors
-      let pc = "2";
+      let pc = random(1, 3);
       let player = prompt("Select: 1 for rock, 2 for paper, 3 for scissors");
       if (player === "1") {
         alert("You selected rock 🪨");
