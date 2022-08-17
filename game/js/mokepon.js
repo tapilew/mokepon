@@ -29,10 +29,10 @@ function selectPlayerPet() {
     if (isChecked) petId = pet;
   }
   const selectedPet = getSelectedPetInfo(petId);
-  const petSelectionMsg =
-    selectedPet.name !== undefined
-      ? `You selected ${selectedPet.name.toUpperCase()}! ${selectedPet.emoji}`
-      : "No pet selected...";
+  console.log(selectedPet);
+  const petSelectionMsg = selectedPet
+    ? `You selected ${selectedPet.name.toUpperCase()}! ${selectedPet.emoji}`
+    : "No pet selected...";
   alert(petSelectionMsg);
 }
 
