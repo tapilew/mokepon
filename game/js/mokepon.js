@@ -1,29 +1,44 @@
-function startGame() {
-  const btnPlayerPet = document.getElementById("pet-btn");
-  btnPlayerPet.addEventListener("click", selectPlayerPet);
+"use strict";
+
+function getSelectedPetInfo(petId) {
+  switch (petId) {
+    case "hipodoge":
+      return {
+        name: "Hipodoge",
+        emoji: "🔥",
+      };
+    case "capipepo":
+      return {
+        name: "Capipepo",
+        emoji: "💧",
+      };
+    case "ratigueya":
+      return {
+        name: "Ratigüeya",
+        emoji: "🌱",
+      };
+  }
 }
 
 function selectPlayerPet() {
-  const radHipodoge = document.getElementById("hipodoge");
-  const radCapipepo = document.getElementById("capipepo");
-  const radRatigueya = document.getElementById("ratigueya");
-  let selectedPet = "";
-  let petEmoji = "";
-  if (radHipodoge.checked) {
-    selectedPet = "Hipodoge";
-    petEmoji = "🔥";
-  } else if (radCapipepo.checked) {
-    selectedPet = "Capipepo";
-    petEmoji = "💧";
-  } else if (radRatigueya.checked) {
-    selectedPet = "Ratigüeya";
-    petEmoji = "🌱";
+  const petsToSelect = document.querySelectorAll("input[name='pet']");
+  let petId = "";
+  for (let i = 0; i < petsToSelect.length; i++) {
+    const pet = petsToSelect[i].id;
+    const isChecked = petsToSelect[i].checked;
+    if (isChecked) petId = pet;
   }
-  let petSelectionMsg =
-    selectedPet !== "" && petEmoji !== ""
-      ? `You selected ${selectedPet.toUpperCase()}! ${petEmoji}`
+  const selectedPet = getSelectedPetInfo(petId);
+  const petSelectionMsg =
+    selectedPet.name !== undefined
+      ? `You selected ${selectedPet.name.toUpperCase()}! ${selectedPet.emoji}`
       : "No pet selected...";
   alert(petSelectionMsg);
+}
+
+function startGame() {
+  const btnPlayerPet = document.getElementById("pet-btn");
+  btnPlayerPet.addEventListener("click", selectPlayerPet);
 }
 
 window.addEventListener("load", startGame);
