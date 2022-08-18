@@ -37,12 +37,18 @@ function getPetId() {
   return petId;
 }
 
+function labelWithPetName(span, petName) {
+  span.innerHTML = petName;
+}
+
 function startGame() {
   const btnPlayerPet = document.getElementById("pet-btn");
+  const spanPlayerPet = document.getElementById("player-pet");
   let selectedPet;
   btnPlayerPet.addEventListener("click", () => {
     const petId = getPetId();
     selectedPet = getSelectedPetInfo(petId);
+    if (selectedPet) labelWithPetName(spanPlayerPet, selectedPet.name);
     alert(getSelectedPetMsg(selectedPet));
   });
 }
