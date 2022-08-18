@@ -1,23 +1,12 @@
 "use strict";
 
-function getSelectedPetInfo(petId) {
-  switch (petId) {
-    case "hipodoge":
-      return {
-        name: "Hipodoge",
-        emoji: "🔥",
-      };
-    case "capipepo":
-      return {
-        name: "Capipepo",
-        emoji: "💧",
-      };
-    case "ratigueya":
-      return {
-        name: "Ratigüeya",
-        emoji: "🌱",
-      };
+function getSelectedPetInfo(petsList, petId) {
+  let pet;
+  for (let i = 0; i < petsList.length; i++) {
+    const listItem = petsList[i];
+    if (petId === listItem.id) pet = listItem;
   }
+  return pet;
 }
 
 function getSelectedPetMsg(selectedPet) {
@@ -41,13 +30,39 @@ function labelWithPetName(span, petName) {
   span.innerHTML = petName;
 }
 
+function random(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
+function selectEnemyPet() {
+  // TODO: Code this
+}
+
 function startGame() {
+  const pets = [
+    {
+      name: "Hipodoge",
+      id: "hipodoge",
+      emoji: "🔥",
+    },
+    {
+      name: "Capipepo",
+      id: "capipepo",
+      emoji: "💧",
+    },
+    {
+      name: "Ratigüeya",
+      id: "ratigueya",
+      emoji: "🌱",
+    },
+  ];
+
   const btnPlayerPet = document.getElementById("pet-btn");
   const spanPlayerPet = document.getElementById("player-pet");
   let selectedPet;
   btnPlayerPet.addEventListener("click", () => {
     const petId = getPetId();
-    selectedPet = getSelectedPetInfo(petId);
+    selectedPet = getSelectedPetInfo(pets, petId);
     if (selectedPet) labelWithPetName(spanPlayerPet, selectedPet.name);
     alert(getSelectedPetMsg(selectedPet));
   });
