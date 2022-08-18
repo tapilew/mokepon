@@ -20,25 +20,31 @@ function getSelectedPetInfo(petId) {
   }
 }
 
-function selectPlayerPet() {
+function getSelectedPetMsg(selectedPet) {
+  return selectedPet
+    ? `You selected ${selectedPet.name.toUpperCase()}! ${selectedPet.emoji}`
+    : "No pet selected...";
+}
+
+function getPetId() {
   const petsToSelect = document.querySelectorAll("input[name='pet']");
-  let petId = "";
+  let petId;
   for (let i = 0; i < petsToSelect.length; i++) {
     const pet = petsToSelect[i].id;
     const isChecked = petsToSelect[i].checked;
     if (isChecked) petId = pet;
   }
-  const selectedPet = getSelectedPetInfo(petId);
-  console.log(selectedPet);
-  const petSelectionMsg = selectedPet
-    ? `You selected ${selectedPet.name.toUpperCase()}! ${selectedPet.emoji}`
-    : "No pet selected...";
-  alert(petSelectionMsg);
+  return petId;
 }
 
 function startGame() {
   const btnPlayerPet = document.getElementById("pet-btn");
-  btnPlayerPet.addEventListener("click", selectPlayerPet);
+  let selectedPet;
+  btnPlayerPet.addEventListener("click", () => {
+    const petId = getPetId();
+    selectedPet = getSelectedPetInfo(petId);
+    alert(getSelectedPetMsg(selectedPet));
+  });
 }
 
 window.addEventListener("load", startGame);
