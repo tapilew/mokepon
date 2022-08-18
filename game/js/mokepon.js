@@ -34,8 +34,9 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function selectEnemyPet() {
-  // TODO: Code this
+function getRandomPet(petsList) {
+  const randomIndex = random(0, petsList.length - 1);
+  return petsList[randomIndex];
 }
 
 function startGame() {
@@ -59,12 +60,23 @@ function startGame() {
 
   const btnPlayerPet = document.getElementById("pet-btn");
   const spanPlayerPet = document.getElementById("player-pet");
-  let selectedPet;
+  const spanEnemyPet = document.getElementById("enemy-pet");
+  let playerPet;
+  let enemyPet;
   btnPlayerPet.addEventListener("click", () => {
     const petId = getPetId();
-    selectedPet = getSelectedPetInfo(pets, petId);
-    if (selectedPet) labelWithPetName(spanPlayerPet, selectedPet.name);
-    alert(getSelectedPetMsg(selectedPet));
+    playerPet = getSelectedPetInfo(pets, petId);
+    if (playerPet) {
+      enemyPet = getRandomPet(pets);
+      labelWithPetName(spanPlayerPet, playerPet.name);
+      labelWithPetName(spanEnemyPet, enemyPet.name);
+    }
+    alert(getSelectedPetMsg(playerPet));
+    if (enemyPet)
+      alert(
+        "Enemy has selected " +
+          `${enemyPet.name.toUpperCase()}! ${enemyPet.emoji}`
+      );
   });
 }
 
