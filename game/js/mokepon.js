@@ -15,6 +15,14 @@ function getSelectedPetMsg(selectedPet) {
     : "No pet selected...";
 }
 
+function getSelectedAttackMsg(pet, attack, isPlayer) {
+  const petUser = isPlayer ? "Your" : "Enemy's";
+  return (
+    `${petUser} pet ${pet.name.toUpperCase()} ` +
+    `has attacked with ${attack.name.toUpperCase()}! ${attack.emoji}`
+  );
+}
+
 function getPetId() {
   const petsToSelect = document.querySelectorAll("input[name='pet']");
   let petId;
@@ -58,11 +66,33 @@ function startGame() {
     },
   ];
 
+  const attacks = [
+    {
+      name: "fire",
+      id: "fire-attack",
+      emoji: "🔥",
+    },
+    {
+      name: "water",
+      id: "water-attack",
+      emoji: "💧",
+    },
+    {
+      name: "ground",
+      id: "ground-attack",
+      emoji: "🌱",
+    },
+  ];
+
   const btnPlayerPet = document.getElementById("pet-btn");
   const spanPlayerPet = document.getElementById("player-pet");
   const spanEnemyPet = document.getElementById("enemy-pet");
+  const btnAttacks = document.querySelectorAll("#attacks button");
+  const displayedBattleMsg = document.querySelector("#messages p");
   let playerPet;
   let enemyPet;
+  let playerAttack;
+
   btnPlayerPet.addEventListener("click", () => {
     const petId = getPetId();
     playerPet = getSelectedPetInfo(pets, petId);
@@ -77,6 +107,25 @@ function startGame() {
         "Enemy has selected " +
           `${enemyPet.name.toUpperCase()}! ${enemyPet.emoji}`
       );
+  });
+  btnAttacks.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (playerPet) {
+        for (let i = 0; i < attacks.length; i++) {
+          const listItem = attacks[i];
+          if (button.id === listItem.id) playerAttack = listItem;
+        }
+        const attackMessage = getSelectedAttackMsg(
+          playerPet,
+          playerAttack,
+          true
+        );
+        displayedBattleMsg.innerHTML = attackMessage;
+        alert(attackMessage);
+      } else {
+        alert("You can't attack without a pet...");
+      }
+    });
   });
 }
 
