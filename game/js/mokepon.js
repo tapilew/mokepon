@@ -15,7 +15,7 @@ function getSelectedPetMsg(selectedPet) {
     : "No pet selected...";
 }
 
-function getSelectedAttackMsg(pet, attack, isPlayer) {
+function getAttackMsg(pet, attack, isPlayer) {
   const petUser = isPlayer ? "Your" : "Enemy's";
   return (
     `${petUser} pet ${pet.name.toUpperCase()} ` +
@@ -42,9 +42,9 @@ function random(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function getRandomPet(petsList) {
-  const randomIndex = random(0, petsList.length - 1);
-  return petsList[randomIndex];
+function getRandomItem(arr) {
+  const randomIndex = random(0, arr.length - 1);
+  return arr[randomIndex];
 }
 
 function startGame() {
@@ -88,16 +88,18 @@ function startGame() {
   const spanPlayerPet = document.getElementById("player-pet");
   const spanEnemyPet = document.getElementById("enemy-pet");
   const btnAttacks = document.querySelectorAll("#attacks button");
-  const displayedBattleMsg = document.querySelector("#messages p");
+  const displayedMsgPlayer = document.querySelector("#messages .player-msg");
+  const displayedMsgEnemy = document.querySelector("#messages .enemy-msg");
   let playerPet;
   let enemyPet;
   let playerAttack;
+  let enemyAttack;
 
   btnPlayerPet.addEventListener("click", () => {
     const petId = getPetId();
     playerPet = getSelectedPetInfo(pets, petId);
     if (playerPet) {
-      enemyPet = getRandomPet(pets);
+      enemyPet = getRandomItem(pets);
       labelWithPetName(spanPlayerPet, playerPet.name);
       labelWithPetName(spanEnemyPet, enemyPet.name);
     }
@@ -115,13 +117,13 @@ function startGame() {
           const listItem = attacks[i];
           if (button.id === listItem.id) playerAttack = listItem;
         }
-        const attackMessage = getSelectedAttackMsg(
-          playerPet,
-          playerAttack,
-          true
-        );
-        displayedBattleMsg.innerHTML = attackMessage;
-        alert(attackMessage);
+        enemyAttack = getRandomItem(attacks);
+        const playerAttackMsg = getAttackMsg(playerPet, playerAttack, true);
+        const enemyAttackMsg = getAttackMsg(enemyPet, enemyAttack, false);
+        displayedMsgPlayer.innerHTML = playerAttackMsg;
+        displayedMsgEnemy.innerHTML = enemyAttackMsg;
+        alert(playerAttackMsg);
+        alert(enemyAttackMsg);
       } else {
         alert("You can't attack without a pet...");
       }
