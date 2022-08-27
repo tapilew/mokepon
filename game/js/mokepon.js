@@ -65,9 +65,9 @@ function getBattleResult(yourAttName, enemyAttName) {
 function getResultMsg(yourAttack, enemyAttack) {
   const result = getBattleResult(yourAttack.name, enemyAttack.name);
   if (result === "draw") {
-    return "It's a draw... Both attacked with " + yourAttack.name + " 😑";
+    return "It's a DRAW... Both attacked with " + yourAttack.name + " 😑";
   }
-  const msgResult = result === "win" ? "win!" : "lose...";
+  const msgResult = result === "win" ? "WIN!" : "LOSE...";
   const winner = result === "win" ? yourAttack.name : enemyAttack.name;
   const loser = result === "win" ? enemyAttack.name : yourAttack.name;
   const winnerEmoji = result === "win" ? yourAttack.emoji : enemyAttack.emoji;
@@ -151,9 +151,10 @@ function startGame() {
         const playerAttackMsg = getAttackMsg(playerPet, playerAttack, true);
         const enemyAttackMsg = getAttackMsg(enemyPet, enemyAttack, false);
         const battleResultMsg = getResultMsg(playerAttack, enemyAttack);
-        createParagraph(msgSection, playerAttackMsg);
-        createParagraph(msgSection, enemyAttackMsg);
-        createParagraph(msgSection, battleResultMsg);
+        createParagraph(
+          msgSection,
+          `${playerAttackMsg} | ${enemyAttackMsg} | ${battleResultMsg}`
+        );
       } else {
         alert("You can't attack without a pet...");
       }
