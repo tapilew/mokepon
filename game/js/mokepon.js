@@ -53,6 +53,31 @@ function createParagraph(node, msg) {
   node.appendChild(p);
 }
 
+function getBattleResult(yourAttName, enemyAttName) {
+  if (yourAttName === enemyAttName) return "draw";
+  return (yourAttName === "ground" && enemyAttName === "water") ||
+    (yourAttName === "water" && enemyAttName === "fire") ||
+    (yourAttName === "fire" && enemyAttName === "ground")
+    ? "win"
+    : "lose";
+}
+
+function getResultMsg(yourAttack, enemyAttack) {
+  const result = getBattleResult(yourAttack.name, enemyAttack.name);
+  if (result === "draw") {
+    return "It's a draw... Both attacked with " + yourAttack.name + " 😑";
+  }
+  const msgResult = result === "win" ? "win!" : "lose...";
+  const winner = result === "win" ? yourAttack.name : enemyAttack.name;
+  const loser = result === "win" ? enemyAttack.name : yourAttack.name;
+  const winnerEmoji = result === "win" ? yourAttack.emoji : enemyAttack.emoji;
+  const reactionEmoji = result === "win" ? "😎" : "🥲";
+  return (
+    `You ${msgResult} ${winner.toUpperCase()} ` +
+    `${winnerEmoji} beats ${loser} ${reactionEmoji}`
+  );
+}
+
 function startGame() {
   const pets = [
     {
@@ -125,10 +150,10 @@ function startGame() {
         enemyAttack = getRandomItem(attacks);
         const playerAttackMsg = getAttackMsg(playerPet, playerAttack, true);
         const enemyAttackMsg = getAttackMsg(enemyPet, enemyAttack, false);
+        const battleResultMsg = getResultMsg(playerAttack, enemyAttack);
         createParagraph(msgSection, playerAttackMsg);
         createParagraph(msgSection, enemyAttackMsg);
-        alert(playerAttackMsg);
-        alert(enemyAttackMsg);
+        createParagraph(msgSection, battleResultMsg);
       } else {
         alert("You can't attack without a pet...");
       }
