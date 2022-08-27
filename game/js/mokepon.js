@@ -47,6 +47,12 @@ function getRandomItem(arr) {
   return arr[randomIndex];
 }
 
+function createParagraph(node, msg) {
+  const p = document.createElement("p");
+  p.innerHTML = msg;
+  node.appendChild(p);
+}
+
 function startGame() {
   const pets = [
     {
@@ -88,8 +94,7 @@ function startGame() {
   const spanPlayerPet = document.getElementById("player-pet");
   const spanEnemyPet = document.getElementById("enemy-pet");
   const btnAttacks = document.querySelectorAll("#attacks button");
-  const displayedMsgPlayer = document.querySelector("#messages .player-msg");
-  const displayedMsgEnemy = document.querySelector("#messages .enemy-msg");
+  const msgSection = document.getElementById("messages");
   let playerPet;
   let enemyPet;
   let playerAttack;
@@ -120,8 +125,8 @@ function startGame() {
         enemyAttack = getRandomItem(attacks);
         const playerAttackMsg = getAttackMsg(playerPet, playerAttack, true);
         const enemyAttackMsg = getAttackMsg(enemyPet, enemyAttack, false);
-        displayedMsgPlayer.innerHTML = playerAttackMsg;
-        displayedMsgEnemy.innerHTML = enemyAttackMsg;
+        createParagraph(msgSection, playerAttackMsg);
+        createParagraph(msgSection, enemyAttackMsg);
         alert(playerAttackMsg);
         alert(enemyAttackMsg);
       } else {
