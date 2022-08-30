@@ -147,6 +147,7 @@ function startGame() {
   const playerHp = document.getElementById("player-hp");
   const enemyHp = document.getElementById("enemy-hp");
   const btnReset = document.getElementById("btn-reset");
+  const btnPets = document.querySelectorAll("input[name='pet']");
   let playerPet;
   let enemyPet;
   let playerAttack;
@@ -160,6 +161,8 @@ function startGame() {
       enemyPet = getRandomItem(pets);
       labelWithPetName(spanPlayerPet, playerPet.name);
       labelWithPetName(spanEnemyPet, enemyPet.name);
+      disableBtnGroup(btnPets);
+      btnPlayerPet.disabled = true;
     }
     alert(getSelectedPetMsg(playerPet));
     if (enemyPet)
