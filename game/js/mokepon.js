@@ -96,6 +96,12 @@ function restartGame() {
   location.reload();
 }
 
+function disableBtnGroup(nodeList) {
+  nodeList.forEach((btn) => {
+    btn.disabled = true;
+  });
+}
+
 function startGame() {
   const pets = [
     {
@@ -171,6 +177,7 @@ function startGame() {
             ? "You have no HP left to fight... 😢😢 Start a new game to play again"
             : "Enemy has no HP left to fight... 🤣🤣 Start a new game to play again"
         );
+        disableBtnGroup(btnAttacks);
         return;
       }
       if (playerPet) {
