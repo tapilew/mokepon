@@ -92,6 +92,10 @@ function getWinnerMsg(winner) {
   }
 }
 
+function restartGame() {
+  location.reload();
+}
+
 function startGame() {
   const pets = [
     {
@@ -136,6 +140,7 @@ function startGame() {
   const msgSection = document.getElementById("messages");
   const playerHp = document.getElementById("player-hp");
   const enemyHp = document.getElementById("enemy-hp");
+  const btnReset = document.getElementById("btn-reset");
   let playerPet;
   let enemyPet;
   let playerAttack;
@@ -206,6 +211,8 @@ function startGame() {
       }
     });
   });
+
+  btnReset.addEventListener("click", restartGame);
 }
 
 window.addEventListener("load", startGame);
