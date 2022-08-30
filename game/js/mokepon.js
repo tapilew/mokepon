@@ -78,6 +78,20 @@ function getResultMsg(yourAttack, enemyAttack) {
   );
 }
 
+function modifyHp(span, change) {
+  const currentHp = parseInt(span.innerHTML);
+  span.innerHTML = currentHp + change;
+}
+
+function getWinnerMsg(winner) {
+  switch (winner) {
+    case "player":
+      return "You win! Enemy loses the game 😍😍";
+    case "enemy":
+      return "You lose! Enemy wins the game 😭😭";
+  }
+}
+
 function startGame() {
   const pets = [
     {
@@ -120,10 +134,13 @@ function startGame() {
   const spanEnemyPet = document.getElementById("enemy-pet");
   const btnAttacks = document.querySelectorAll("#attacks button");
   const msgSection = document.getElementById("messages");
+  const playerHp = document.getElementById("player-hp");
+  const enemyHp = document.getElementById("enemy-hp");
   let playerPet;
   let enemyPet;
   let playerAttack;
   let enemyAttack;
+  let winner;
 
   btnPlayerPet.addEventListener("click", () => {
     const petId = getPetId();
@@ -142,6 +159,15 @@ function startGame() {
   });
   btnAttacks.forEach((button) => {
     button.addEventListener("click", () => {
+      if (winner) {
+        createParagraph(
+          msgSection,
+          winner === "player"
+            ? "You have no HP left to fight... 😢😢 Start a new game to play again"
+            : "Enemy has no HP left to fight... 🤣🤣 Start a new game to play again"
+        );
+        return;
+      }
       if (playerPet) {
         for (let i = 0; i < attacks.length; i++) {
           const listItem = attacks[i];
@@ -155,6 +181,26 @@ function startGame() {
           msgSection,
           `${playerAttackMsg} | ${enemyAttackMsg} | ${battleResultMsg}`
         );
+        const battleResult = getBattleResult(
+          playerAttack.name,
+          enemyAttack.name
+        );
+        switch (battleResult) {
+          case "win":
+            modifyHp(enemyHp, -1);
+            break;
+          case "lose":
+            modifyHp(playerHp, -1);
+            break;
+          case "draw":
+            break;
+        }
+        const intPlayerHp = parseInt(playerHp.innerHTML);
+        const intEnemyHp = parseInt(enemyHp.innerHTML);
+        if (intPlayerHp <= 0 || intEnemyHp <= 0) {
+          winner = intPlayerHp <= 0 ? "enemy" : "player";
+          createParagraph(msgSection, getWinnerMsg(winner));
+        }
       } else {
         alert("You can't attack without a pet...");
       }
