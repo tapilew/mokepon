@@ -177,8 +177,8 @@ function startGame() {
         createParagraph(
           msgSection,
           winner === "player"
-            ? "You have no HP left to fight... 😢😢 Start a new game to play again"
-            : "Enemy has no HP left to fight... 🤣🤣 Start a new game to play again"
+            ? "Enemy has no HP left to fight... 🤣🤣 Start a new game to play again"
+            : "You have no HP left to fight... 😢😢 Start a new game to play again"
         );
         disableBtnGroup(btnAttacks);
         return;
