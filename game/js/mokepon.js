@@ -148,11 +148,17 @@ function startGame() {
   const enemyHp = document.getElementById("enemy-hp");
   const btnReset = document.getElementById("btn-reset");
   const btnPets = document.querySelectorAll("input[name='pet']");
+  const sectionSelectPet = document.getElementById("select-pet");
+  const sectionSelectAttack = document.getElementById("select-attack");
+  const sectionReset = document.getElementById("reset");
   let playerPet;
   let enemyPet;
   let playerAttack;
   let enemyAttack;
   let winner;
+
+  sectionSelectAttack.style.display = "none";
+  sectionReset.style.display = "none";
 
   btnPlayerPet.addEventListener("click", () => {
     const petId = getPetId();
@@ -170,6 +176,8 @@ function startGame() {
         "Enemy has selected " +
           `${enemyPet.name.toUpperCase()}! ${enemyPet.emoji}`
       );
+    sectionSelectAttack.style.display = "block";
+    sectionSelectPet.style.display = "none";
   });
   btnAttacks.forEach((button) => {
     button.addEventListener("click", () => {
@@ -215,6 +223,7 @@ function startGame() {
         if (intPlayerHp <= 0 || intEnemyHp <= 0) {
           winner = intPlayerHp <= 0 ? "enemy" : "player";
           createParagraph(msgSection, getWinnerMsg(winner));
+          sectionReset.style.display = "block";
         }
       } else {
         alert("You can't attack without a pet...");
