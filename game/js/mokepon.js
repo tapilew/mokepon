@@ -169,15 +169,16 @@ function startGame() {
       labelWithPetName(spanEnemyPet, enemyPet.name);
       disableBtnGroup(btnPets);
       btnPlayerPet.disabled = true;
-    }
-    alert(getSelectedPetMsg(playerPet));
-    if (enemyPet)
+      alert(getSelectedPetMsg(playerPet));
       alert(
         "Enemy has selected " +
           `${enemyPet.name.toUpperCase()}! ${enemyPet.emoji}`
       );
-    sectionSelectAttack.style.display = "block";
-    sectionSelectPet.style.display = "none";
+      sectionSelectAttack.style.display = "block";
+      sectionSelectPet.style.display = "none";
+    } else {
+      alert(getSelectedPetMsg(playerPet));
+    }
   });
   btnAttacks.forEach((button) => {
     button.addEventListener("click", () => {
