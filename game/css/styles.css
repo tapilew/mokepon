@@ -22,3 +22,10 @@ button {
   width: 320px;
   height: 50px;
 }
+
+#select-pet {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
