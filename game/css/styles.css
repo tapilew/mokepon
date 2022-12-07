@@ -1,31 +1,31 @@
 .title {
-  color: hotpink;
-  width: 320px;
-  height: 50px;
   background-color: teal;
+  color: hotpink;
+  height: 50px;
+  width: 320px;
 }
 
 label {
   background-color: tomato;
-  width: 320px;
   height: 50px;
+  width: 320px;
 }
 
 input {
   background-color: aqua;
-  width: 320px;
   height: 50px;
+  width: 320px;
 }
 
 button {
   background-color: blueviolet;
-  width: 320px;
   height: 50px;
+  width: 320px;
 }
 
 #select-pet {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
