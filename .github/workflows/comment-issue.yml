@@ -1,4 +1,4 @@
-name: Learning GitHub Script
+name: Create an Issue Comment
 
 on:
   issues:
