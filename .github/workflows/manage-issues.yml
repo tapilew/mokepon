@@ -1,0 +1,32 @@
+name: Manage new issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comment on new issue
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: "{% raw %}${{secrets.GITHUB_TOKEN}}{% endraw %}"
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "Hello human, this issue comment was written with GitHub Script! 🤖"
+            });
+      - name: Add issue to project board
+        if: contains(github.event.issue.labels.*.name, 'bug')
+        uses: actions/github-script@0.8.0
+        with:
+          github-token: "{% raw %}${{secrets.GITHUB_TOKEN}}{% endraw %}"
+          script: |
+            github.projects.createCard({
+              column_id: {{columnID}},
+              content_id: context.payload.issue.id,
+              content_type: "Issue"
+            });
